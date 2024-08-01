@@ -93,31 +93,54 @@
     </section>
 
     <!-- JavaScript code -->
-    <script>
-      document.getElementById('contact-form').addEventListener('submit', async function (event) {
-          event.preventDefault();
+   <script>
+  // Handle form submission
+  document.getElementById('contact-form').addEventListener('submit', async function (event) {
+      event.preventDefault();
 
-          const firstname = document.getElementById('firstname').value;
-          const lastname = document.getElementById('lastname').value;
-          const number = document.getElementById('number').value;
-          const country = document.getElementById('country').value;
-          const message = document.getElementById('message').value;
+      const firstname = document.getElementById('firstname').value;
+      const lastname = document.getElementById('lastname').value;
+      const number = document.getElementById('number').value;
+      const country = document.getElementById('country').value;
+      const message = document.getElementById('message').value;
 
-          try {
-              const response = await fetch('/contact', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ firstname, lastname, number, country, message }),
-              });
+      try {
+          // Adjust the URL based on your deployment
+          const response = await fetch('https://contact-application-flax.vercel.app/contact', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ firstname, lastname, number, country, message }),
+          });
 
-              const result = await response.json();
-              alert(result.message);
-          } catch (error) {
-              alert('Error: ' + error.message);
+          // Check if the response is OK
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
           }
-      });
-    </script>
+
+          const result = await response.json();
+          alert(result.message);
+      } catch (error) {
+          alert('Error: ' + error.message);
+      }
+  });
+
+  // Example of making an API request
+  fetch('https://api.example.com/data')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); // Parse JSON
+    })
+    .then(data => {
+      console.log(data); // Handle the data
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+</script>
+
 </body>
 </html>
