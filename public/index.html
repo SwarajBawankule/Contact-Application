@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo-title">
+          <div class="logo">
+              <img src="logo2.png" alt="Logo">
+          </div>
+          <div class="title">Swaraj Sb</div>
+      </div>
+      <div class="button-container">
+          <button>Contact Us</button>
+      </div>
+  </div>
+</header>
+    
+    <section class="contact-us">
+      <img src="contact-background.jpg" alt="Contact Background" class="contact-background-image">
+      <div class="contact">
+        <h1>Contact Us</h1>
+        <p>We would love to hear from you! <br>
+           Feel free to reach out using the form below or contact us directly through the details provided.
+        </p>
+        <div class="contact-details">
+          <div class="detail">
+            <h3>Email:</h3>
+            <p>info@example.com</p>
+          </div>
+          <div class="detail">
+            <h3>Phone:</h3>
+            <p>+123 456 7890</p>
+          </div>
+          <div class="detail">
+            <h3>Address:</h3>
+            <p>123 Main Street, City, Country</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="contact-form">
+          <form id="contact-form">
+            <div class="form-group">
+              <label for="firstname">First Name</label>
+              <input type="text" id="firstname" name="firstname" placeholder="Enter Your First Name">
+            </div>
+
+            <div class="form-group">
+              <label for="lastname">Last Name</label>
+              <input type="text" id="lastname" name="lastname" placeholder="Enter Your Last Name">
+            </div>
+            <div class="form-group">
+              <label for="number">Phone Number</label>
+              <input type="tel" id="number" name="number" placeholder="Enter Your Phone Number">
+            </div>
+            <div class="form-group">
+
+
+
+              <label for="country" class="form-label"><b>Country</b></label>
+                    <select class="form-select" id="country" required>
+                        <option value="" disabled selected>Select your country</option>
+                        <option value="India">India</option>
+                        <option value="United States">United States</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="Japan">Japan</option>
+                        <option value="China">China</option>
+                        <option value="Brazil">Brazil</option>
+             
+             
+             
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="message">What would you like to discuss?</label>
+              <textarea id="message" name="message" rows="5" placeholder="Write Here What You Like Discuss......."></textarea>
+            </div>
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- JavaScript code -->
+    <script>
+      document.getElementById('contact-form').addEventListener('submit', async function (event) {
+          event.preventDefault();
+
+          const firstname = document.getElementById('firstname').value;
+          const lastname = document.getElementById('lastname').value;
+          const number = document.getElementById('number').value;
+          const country = document.getElementById('country').value;
+          const message = document.getElementById('message').value;
+
+          try {
+              const response = await fetch('/contact', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ firstname, lastname, number, country, message }),
+              });
+
+              const result = await response.json();
+              alert(result.message);
+          } catch (error) {
+              alert('Error: ' + error.message);
+          }
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+/* General body styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f3f7b9;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: url('background.jpg');
+  background-size: cover; /* Adjusts the image size */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat;
+}
+
+/* Header styling */
+header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Navbar styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Dark background for the navbar */
+  padding: 10px 20px; /* Padding around the navbar */
+  color: white;
+}
+
+/* Logo and title styling */
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+.logo-title .logo img {
+  height: 50px; /* Logo height */
+  width: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Rounded corners for the logo */
+}
+
+.logo-title .title {
+  font-size: 28px; /* Larger font size for the title */
+  font-weight: bold;
+  color: #ffffff; /* White color for title text */
+  margin-left: 15px; /* Space between logo and title */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for better readability */
+  font-family: 'Roboto', sans-serif; /* Custom font family */
+}
+
+/* Button styling in navbar */
+.navbar .button-container {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .button-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.navbar .button-container button:hover {
+  background-color: #ddd;
+}
+
+/* Contact section styling */
+.contact-us {
+  display: flex;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  max-width: 1000px; /* Increased width */
+  margin: 20px auto; /* Centered and margin adjusted */
+  justify-content: flex-start; /* Align items to the start of the container */
+  align-items: flex-start;
+  width: 90%; /* Adjust to be responsive */
+  padding: 30px; /* Increased padding */
+  box-sizing: border-box;
+}
+
+/* Contact section text alignment and styling */
+.contact {
+  text-align: left;
+  margin-right: 20px; /* Adjusted margin */
+}
+
+/* Container styling */
+.container {
+  width: 100%;
+  max-width: 800px; /* Increased max width */
+  padding: 20px; /* Increased padding */
+  box-sizing: border-box;
+  margin: 0 auto; /* Centered the container */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Contact form styling */
+.contact-form {
+  width: 100%;
+  max-width: 1000px; /* Increased max width */
+  background-color: #fff;
+  padding: 30px; /* Increased padding */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  box-sizing: border-box;
+}
+
+/* Contact form title styling */
+.contact-form h2 {
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+/* Form group styling */
+.form-group {
+  margin-bottom: 20px; /* Increased margin */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 10px; /* Increased margin */
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 15px; /* Increased padding */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f3f7b9;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Button styling */
+button {
+  display: block;
+  width: 100%;
+  padding: 15px; /* Increased padding */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .navbar .company-name {
+      font-size: 1.2rem;
+  }
+
+  .contact-form {
+      max-width: 100%;
+      padding: 15px;
+  }
+}
+
+/* Background image styling */
+.contact-background-image {
+  width: 100%;
+  height: auto;
+  opacity: 0.5; /* Optional: add transparency */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1; /* Place behind content */
+}

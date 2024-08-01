@@ -1,51 +1,58 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-const port = 3003;
 
 const app = express();
 
-// Middleware to serve static files and parse URL-encoded bodies
-app.use(express.static(__dirname));
-app.use(express.urlencoded({ extended: true }));
+// Connect to MongoDB using environment variables
+mongoose.connect(process.env.MONGO_URI, {
+  serverSelectionTimeoutMS: 3003, // Set a timeout for server selection
+})
+  .then(() => console.log('MongoDB connected...'))
+  .catch((err) => console.error('MongoDB connection failed...', err));
 
-// Connect to MongoDB
-mongoose.connect('mongodb://127.0.0.1:27017/contact')
-  .then(() => console.log("MongoDB connection successful"))
-  .catch(err => console.error("MongoDB connection error:", err));
-
-// Define a schema and model for the contact form data
-const userSchema = new mongoose.Schema({
-  firstname: String,
-  lastname: String,
-  phone: String,
-  country: String,
-  message: String
+// Define Schema and Model
+const contactSchema = new mongoose.Schema({
+  firstname: { type: String, required: true },
+  lastname: { type: String, required: true },
+  number: { type: String, required: true },
+  country: { type: String, required: true },
+  message: { type: String, required: true },
 });
 
-const Users = mongoose.model("User", userSchema);
+const Contact = mongoose.model('Contact', contactSchema);
 
-// Serve the HTML form
+// Middleware
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Routes
+app.post('/contact', async (req, res) => {
+  const { firstname, lastname, number, country, message } = req.body;
+
+  if (!firstname || !lastname || !number || !country || !message) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  try {
+    const newContact = new Contact({ firstname, lastname, number, country, message });
+    await newContact.save();
+    res.status(201).json({ message: 'Contact form submitted successfully!' });
+  } catch (error) {
+    console.error('Error saving contact:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Serve the contact form at the root URL
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
-// Handle form submission
-app.post('/post', async (req, res) => {
-  const { firstname, lastname, phone, country, message } = req.body;
-  const user = new Users({
-    firstname,
-    lastname,
-    phone,
-    country,
-    message
-  });
-  await user.save();
-  console.log(user);
-  res.send("Form Submission Successful");
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Start the server
-app.listen(port, () => {
-  console.log(`Server started on http://localhost:${port}`);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
