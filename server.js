@@ -5,6 +5,14 @@ const path = require('path');
 
 const app = express();
 
+app.use(cors(
+  {
+    origin: ["https://contact-application-flax.vercel.app/"],
+    METHODS: ["POSt", "GET"],
+    Credential : true
+  }
+));
+
 // Connect to MongoDB using environment variables
 mongoose.connect(process.env.MONGO_URI, {
   serverSelectionTimeoutMS: 3003, // Set a timeout for server selection
